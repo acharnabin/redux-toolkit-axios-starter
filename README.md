@@ -1,54 +1,98 @@
-# React + TypeScript + Vite
+# React Router Example
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React application built with TypeScript, Redux Toolkit, and React Router, demonstrating best practices in React development.
 
-Currently, two official plugins are available:
+## Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+react-router-example/
+├── src/
+│   ├── api/            # API integration and services
+│   ├── assets/         # Static assets (images, fonts, etc.)
+│   ├── components/     # Reusable UI components
+│   ├── hooks/          # Custom React hooks
+│   ├── layout/         # Layout components
+│   ├── pages/          # Page components
+│   ├── redux-toolkit/  # Redux store, slices, and reducers
+│   ├── App.tsx         # Main application component
+│   ├── main.tsx        # Application entry point
+│   └── index.css       # Global styles
+├── public/             # Public static files
+├── index.html          # HTML entry point
+└── package.json        # Project dependencies and scripts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Prerequisites
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Node.js (v18 or higher recommended)
+- npm or yarn package manager
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+## Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd react-router-example
 ```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+## Available Scripts
+
+- `npm run dev` or `yarn dev` - Start development server
+- `npm run build` or `yarn build` - Build for production
+- `npm run lint` or `yarn lint` - Run ESLint
+- `npm run preview` or `yarn preview` - Preview production build
+
+## Dependencies
+
+### Main Dependencies
+- React (^19.1.0)
+- React DOM (^19.1.0)
+- React Router (^7.6.0)
+- Redux Toolkit (^2.8.2)
+- React Redux (^9.2.0)
+- Redux Persist (^6.0.0)
+- Axios (^1.9.0)
+
+### Development Dependencies
+- TypeScript (~5.8.3)
+- Vite (^6.3.5)
+- ESLint (^9.25.0)
+- Various TypeScript and React type definitions
+- React development plugins
+
+## Features
+
+- TypeScript support
+- Redux state management with Redux Toolkit
+- React Router for navigation
+- Axios for API requests
+- Redux Persist for state persistence
+- ESLint for code linting
+- Vite for fast development and building
+
+## Development
+
+The project uses Vite as the build tool, which provides:
+- Fast hot module replacement (HMR)
+- Optimized production builds
+- TypeScript support out of the box
+- ESLint integration
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License.
