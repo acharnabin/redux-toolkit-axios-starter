@@ -10,6 +10,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
       <PersistGate persistor={_persistStore}>
+        
         <App />
       </PersistGate>
     </Provider>

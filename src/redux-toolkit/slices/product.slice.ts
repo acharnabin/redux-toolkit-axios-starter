@@ -34,7 +34,6 @@ const ProductSlice = createSlice({
     builder.addCase(fetchProductThunk.pending, (state, action) => {
       const { payload, type } = action;
       console.log(payload, type);
-
       state.isProductLoading = true;
       state.isProductError = false;
       state.productData = [];
@@ -42,7 +41,6 @@ const ProductSlice = createSlice({
     // fullfilled
     builder.addCase(fetchProductThunk.fulfilled, (state, action) => {
       const { payload, type } = action;
-      console.log(payload, type);
       state.isProductLoading = false;
       state.isProductError = false;
       state.productData = payload;
@@ -50,7 +48,6 @@ const ProductSlice = createSlice({
     //rejected
     builder.addCase(fetchProductThunk.rejected, (state, action) => {
       const { payload, type } = action;
-      console.log(payload, type);
       state.isProductLoading = false;
       state.isProductError = true;
       state.productData = [];
