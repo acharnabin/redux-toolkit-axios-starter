@@ -9,16 +9,18 @@ const AxiosInstance = axios.create({
 // Private api -> send token to server
 // public api
 AxiosInstance.interceptors.request.use(
-  (confing) => {
+  (config) => {
+
     const token = localStorage.getItem("token");
 
     if (token) {
-      confing.headers["Authorization"] = token;
+      config.headers["Authorization"] = token;
     }
 
-    return confing;
+    return config;
   },
   (error) => {
+    
     return Promise.reject(error);
   }
 );

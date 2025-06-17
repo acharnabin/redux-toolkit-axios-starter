@@ -2,7 +2,7 @@ export const baseURL = "https://fakestoreapi.com";
 
 export const endpoints = {
   product: {
-    list: "/productsddddd", 
+    list: "/products", 
     details: (id: number) => `/products/${id}`,
   },
 };

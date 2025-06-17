@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchproductList } from "../../api/functions/product.api";
+import type { IProductSliceInitialState } from "../typescript/productslice.interface";
+import type { IProductObj } from "../../typescript/interfaces/product.api";
 
 // async thunk;
 export const fetchProductThunk = createAsyncThunk(
@@ -12,22 +14,29 @@ export const fetchProductThunk = createAsyncThunk(
 
 // pending , fullfilled , rejected
 
-const initialState = {
-  //
+const initialState: IProductSliceInitialState = {
   isProductLoading: false,
   productData: [],
   isProductError: false,
-  //
   cartItems: [],
 };
+
+// 1 , 2
+// 2 => filter kore 2 => [1]
 
 const ProductSlice = createSlice({
   name: "product-slice",
   initialState,
   reducers: {
-    setCartCount: (state, { payload }) => {
+    addItemToCart: (state, { payload }:{payload:IProductObj}) => {
       state.cartItems = [...state.cartItems, payload];
     },
+    removeFromCart:(state,{payload}:{payload:number})=>{
+      // const index=state.cartItems.findIndex(item=>item?.id===payload)
+      // index ta pele amra splice method use korbo
+      state.cartItems=state.cartItems.filter(item=>item?.id!==payload);
+
+    }
   },
   extraReducers: (builder) => {
     // pending state
@@ -40,14 +49,13 @@ const ProductSlice = createSlice({
     });
     // fullfilled
     builder.addCase(fetchProductThunk.fulfilled, (state, action) => {
-      const { payload, type } = action;
+      const { payload } = action;
       state.isProductLoading = false;
       state.isProductError = false;
       state.productData = payload;
     });
     //rejected
-    builder.addCase(fetchProductThunk.rejected, (state, action) => {
-      const { payload, type } = action;
+    builder.addCase(fetchProductThunk.rejected, (state) => {
       state.isProductLoading = false;
       state.isProductError = true;
       state.productData = [];
@@ -55,6 +63,6 @@ const ProductSlice = createSlice({
   },
 });
 
-export const { setCartCount } = ProductSlice.actions;
+export const { addItemToCart ,removeFromCart} = ProductSlice.actions;
 
 export default ProductSlice.reducer;
