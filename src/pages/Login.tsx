@@ -11,6 +11,11 @@ interface IErrorState {
   name: null | string;
 }
 
+// yup & zod
+{
+  // name: string, min, max ,
+}
+
 const Login = () => {
   const [inputState, setInputState] = useState({
     email: "",
