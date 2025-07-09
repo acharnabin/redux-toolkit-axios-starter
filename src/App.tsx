@@ -7,6 +7,7 @@ import Cart from "./pages/Cart";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Signup from "./pages/Signup";
 import SignupWithZod from "./pages/SignupWithZod";
+import BusinessSetUp from "./pages/BusinessSetUp";
 
 // Lazy loading components
 const About = lazy(() => import("./pages/About"));
@@ -30,7 +31,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="about" element={<About />} />
+          <Route path="/business-setup" element={<BusinessSetUp />} />
           <Route path="/about/:xyz" element={<About />} />
 
           <Route path="auth">
