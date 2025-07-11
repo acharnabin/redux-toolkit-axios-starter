@@ -28,6 +28,8 @@ const FinalStep = () => {
     objective
   } = watch();
 
+  const file = watch("file");
+
   return (
     <Card sx={{ maxWidth: 600, mx: "auto", mt: 4, boxShadow: 3 }}>
       <CardContent>
@@ -49,6 +51,20 @@ const FinalStep = () => {
             <Typography>Company stucture</Typography>
             {compnayStucture.map((item)=><Chip label={item} key={item}/>)}
           </Stack>
+
+           {!!file && (
+            <Box key={file?.name}>
+              <img
+                src={URL.createObjectURL(file)}
+                height={"80px"}
+                width={"80px"}
+                alt={file.name}
+              />
+             
+            </Box>
+          )}
+
+          
         </Stack>
       </CardContent>
     </Card>

@@ -11,7 +11,7 @@ import {
   Stepper,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as z from "zod";
 import FirstStep from "../components/FirstStep";
@@ -25,6 +25,8 @@ import ChecklistIcon from "@mui/icons-material/Checklist";
 import ThirdStep from "../components/ThirdStep";
 import FourthStep from "../components/FourthStep";
 import FinalStep from "../components/FInalStep";
+import FifthStep from "../components/FifthStep";
+// import { Label } from "@mui/icons-material";
 
 const businessSchema = z.object({
   business_name: z.string().trim().min(1, "Enter business name"),
@@ -49,13 +51,29 @@ const businessSchema = z.object({
       })
     )
     .nonempty("Enter one hobby"),
-  education: z.array(
-    z.object({
-      name: z.string().trim().min(1),
-      startYear: z.string().trim().min(1),
-      endYear: z.string().trim().min(1),
-    })
-  ).nonempty("Enter one education"),
+  education: z
+    .array(
+      z.object({
+        name: z.string().trim().min(1),
+        startYear: z.string().trim().min(1),
+        endYear: z.string().trim().min(1),
+      })
+    )
+    .nonempty("Enter one education"),
+
+  // file validation aer jonne
+  file: z.custom<File | undefined>(
+    (files: FileList) => {
+      if (!files) {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: " File is required",
+    }
+  ),
 });
 
 export type TbusinessSchema = z.infer<typeof businessSchema>;
@@ -65,6 +83,7 @@ const steps = [
   { label: "Personal Info", icon: <PersonIcon /> },
   { label: "Third step", icon: <PersonIcon /> },
   { label: "Review", icon: <ChecklistIcon /> },
+  { label: "File upload" },
 ];
 
 const BusinessSetUp = () => {
@@ -92,6 +111,8 @@ const BusinessSetUp = () => {
       validate = await trigger(["compnayStucture", "objective"]);
     } else if (activeStep === 3) {
       validate = await trigger(["education", "hobbies"]);
+    } else if (activeStep === 4) {
+      validate = await trigger(["file"]);
     }
 
     if (validate) {
@@ -108,8 +129,21 @@ const BusinessSetUp = () => {
   const onSubmit = (data: TbusinessSchema) => {
     console.log("Submitted Data:", data);
     alert("Form Submitted Successfully!");
-    setActiveStep(prev=>prev+1)
+    // api call
+    setActiveStep((prev) => prev + 1);
   };
+
+  // useEffect(() => {
+  //   window.addEventListener("beforeunload", () => {
+  //     confirm("hi");
+  //   });
+
+  //   return () => {
+  //     window.addEventListener("beforeunload", () => {
+  //       confirm("hi");
+  //     });
+  //   };
+  // }, []);
 
   return (
     <Container maxWidth="md" sx={{ py: 6 }}>
@@ -127,12 +161,13 @@ const BusinessSetUp = () => {
             </Box>
 
             <Box mb={4}>
-            
               {activeStep === 0 && <FirstStep />}
               {activeStep === 1 && <SecondStep />}
               {activeStep === 2 && <ThirdStep />}
               {activeStep === 3 && <FourthStep />}
-              {activeStep === 4 && <FinalStep />}
+
+              {activeStep === 4 && <FifthStep />}
+              {activeStep === 5 && <FinalStep />}
               {activeStep === steps.length && (
                 <Typography variant="h6" align="center" color="success.main">
                   🎉 Submission Successful!
