@@ -26,6 +26,10 @@ import ThirdStep from "../components/ThirdStep";
 import FourthStep from "../components/FourthStep";
 import FinalStep from "../components/FInalStep";
 import FifthStep from "../components/FifthStep";
+import ShowSubmissionTable from "../components/ShowSubmissionTable";
+import { useStoreState } from "zustand-x";
+import zustandStore from "../zustand/zustand-store";
+import counterStore from "../zustand/counter-store";
 // import { Label } from "@mui/icons-material";
 
 const businessSchema = z.object({
@@ -92,6 +96,8 @@ const BusinessSetUp = () => {
     resolver: zodResolver(businessSchema),
     mode: "onTouched",
   });
+  const [_submissions,setSubmission]=useStoreState(zustandStore,'submmission')
+  const [_counter,setCounter]=useStoreState(counterStore,'count')
 
   const { handleSubmit, trigger } = methods;
 
@@ -127,10 +133,13 @@ const BusinessSetUp = () => {
   };
 
   const onSubmit = (data: TbusinessSchema) => {
-    console.log("Submitted Data:", data);
-    alert("Form Submitted Successfully!");
+
+    setSubmission([..._submissions,data])
+    
+    
     // api call
     setActiveStep((prev) => prev + 1);
+    setCounter(_counter+1)
   };
 
   // useEffect(() => {
@@ -171,6 +180,13 @@ const BusinessSetUp = () => {
               {activeStep === steps.length && (
                 <Typography variant="h6" align="center" color="success.main">
                   🎉 Submission Successful!
+
+                  <Button onClick={()=>{
+                    setActiveStep(0);
+                    methods.reset(undefined)
+                  }}>
+                    Arek ta entry add korbo
+                  </Button>
                 </Typography>
               )}
             </Box>
@@ -199,6 +215,11 @@ const BusinessSetUp = () => {
           </CardContent>
         </Card>
       </FormProvider>
+
+      <Box mt={2}>
+        <ShowSubmissionTable/>
+
+      </Box>
     </Container>
   );
 };
