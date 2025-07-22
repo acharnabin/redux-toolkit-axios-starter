@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { Card, CardContent, Typography, Stack, Box, Chip } from "@mui/material";
+import { Card, CardContent, Typography, Stack, Box, Chip, Button } from "@mui/material";
 import BusinessIcon from "@mui/icons-material/Business";
 import LanguageIcon from "@mui/icons-material/Language";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -11,7 +11,11 @@ import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 
 import { type TbusinessSchema } from "../pages/BusinessSetUp";
 
-const FinalStep = () => {
+const FinalStep = ({
+  handleEditStep
+}:{
+  handleEditStep:(step:number)=>void
+}) => {
   const { watch } = useFormContext<TbusinessSchema>();
   const {
     business_name,
@@ -34,8 +38,12 @@ const FinalStep = () => {
     <Card sx={{ maxWidth: 600, mx: "auto", mt: 4, boxShadow: 3 }}>
       <CardContent>
         <Typography variant="h5" gutterBottom>
-          Business Summary
+          Business Summary 
         </Typography>
+
+        <Button onClick={()=>handleEditStep(0)}>
+          Edit
+        </Button>
 
         <Stack spacing={2}>
           <Item icon={<BusinessIcon />} label="Business Name" value={business_name} />
@@ -48,6 +56,9 @@ const FinalStep = () => {
           <Item icon={<PhoneIcon />} label="Phone" value={phone} />
 
           <Stack>
+             <Button onClick={()=>handleEditStep(1)}>
+          Edit
+        </Button>
             <Typography>Company stucture</Typography>
             {compnayStucture.map((item)=><Chip label={item} key={item}/>)}
           </Stack>

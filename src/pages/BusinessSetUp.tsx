@@ -27,7 +27,7 @@ import FourthStep from "../components/FourthStep";
 import FinalStep from "../components/FInalStep";
 import FifthStep from "../components/FifthStep";
 import ShowSubmissionTable from "../components/ShowSubmissionTable";
-import { useStoreState } from "zustand-x";
+import { useStoreState, useStoreValue } from "zustand-x";
 import zustandStore from "../zustand/zustand-store";
 import counterStore from "../zustand/counter-store";
 // import { Label } from "@mui/icons-material";
@@ -98,6 +98,7 @@ const BusinessSetUp = () => {
   });
   const [_submissions,setSubmission]=useStoreState(zustandStore,'submmission')
   const [_counter,setCounter]=useStoreState(counterStore,'count')
+  const name=useStoreValue(zustandStore,'name')
 
   const { handleSubmit, trigger } = methods;
 
@@ -176,7 +177,10 @@ const BusinessSetUp = () => {
               {activeStep === 3 && <FourthStep />}
 
               {activeStep === 4 && <FifthStep />}
-              {activeStep === 5 && <FinalStep />}
+              {activeStep === 5 && <FinalStep 
+                handleEditStep={step=>setActiveStep(step)}
+              
+              />}
               {activeStep === steps.length && (
                 <Typography variant="h6" align="center" color="success.main">
                   🎉 Submission Successful!
@@ -217,6 +221,10 @@ const BusinessSetUp = () => {
       </FormProvider>
 
       <Box mt={2}>
+        <h1>
+{name}
+        </h1>
+        
         <ShowSubmissionTable/>
 
       </Box>

@@ -5,9 +5,9 @@ import Header from "./components/Header";
 import LoginPageWithHookFrom from "./pages/LoginPageWithHookform";
 import Cart from "./pages/Cart";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Signup from "./pages/Signup";
 import SignupWithZod from "./pages/SignupWithZod";
 import BusinessSetUp from "./pages/BusinessSetUp";
+import HomeWithUseQuery from "./pages/Home-with-usequery";
 
 // Lazy loading components
 const About = lazy(() => import("./pages/About"));
@@ -22,6 +22,8 @@ function App() {
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route index element={<Home />} />
+
+          <Route path="home2" element={<HomeWithUseQuery/>}/>
 
           <Route
             path="cart"
