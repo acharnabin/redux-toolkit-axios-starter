@@ -1,16 +1,18 @@
-
-export type TProductResponse=IProductObj[]
-
-export interface IProductObj {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: IRating;
-}
-interface IRating {
-  rate: number;
-  count: number;
-}
+export type TProductSchema = {
+  IProductObject: {
+    id: number;
+    title: string;
+    slug: string;
+    price: number;
+    description: string;
+    category: TProductSchema["ICategory"];
+    images: string[];
+  };
+  ICategory: {
+    id: number;
+    name: string;
+    slug: string;
+    image: string;
+  };
+  IProductResponse:TProductSchema['IProductObject'][]
+};

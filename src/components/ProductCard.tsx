@@ -1,12 +1,12 @@
 import {
-  Box,
+
   Button,
   Card,
   CardActions,
   CardContent,
   CardMedia,
   Chip,
-  Rating,
+
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -24,8 +24,7 @@ interface IProductCardProps {
   price: number;
   description: string;
   category: string;
-  rate: number;
-  count: number;
+ 
 }
 
 const ProductCard = ({
@@ -34,8 +33,7 @@ const ProductCard = ({
   price,
   description,
   category,
-  rate,
-  count,
+ 
   id,
 }: IProductCardProps) => {
   const dispatch = useAppDispatch();
@@ -82,12 +80,7 @@ const ProductCard = ({
         <Typography variant="h6" gutterBottom>
           {title}
         </Typography>
-        <Box display="flex" alignItems="center" mb={1}>
-          <Rating value={rate} readOnly precision={0.1} size="small" />
-          <Typography variant="caption" ml={0.5}>
-            ({count})
-          </Typography>
-        </Box>
+        
         <Typography variant="subtitle1" color="primary" gutterBottom>
           ₹{price.toFixed(2)}
         </Typography>

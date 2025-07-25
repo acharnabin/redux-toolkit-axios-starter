@@ -1,17 +1,20 @@
-import { type TProductResponse } from "../../typescript/interfaces/product.api";
+import {  type TProductSchema } from "../../typescript/interfaces/product.api";
 import AxiosInstance from "../axios-instance/axiosInstance"
 import { endpoints } from "../endpoints/endpoints"
 
 export const fetchproductList=async ({
     title,
-    categoryId
+    categoryId,
+    offset,limit
 }:{
     title:string,
-    categoryId?:number
+    categoryId?:number,
+    offset:number,
+    limit:number
 })=>{
-    const res=await AxiosInstance.get<TProductResponse>(endpoints.product.list,{
+    const res=await AxiosInstance.get<TProductSchema['IProductResponse']>(endpoints.product.list,{
         params:{
-            title,categoryId
+            title,categoryId,offset,limit
         }
     });
     return res.data

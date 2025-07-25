@@ -10,10 +10,9 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
-  Checkbox,
   ListItemText,
   TextField,
+  Pagination,
 } from "@mui/material";
 import ProductCard from "../components/ProductCard";
 import { useQuery } from "@tanstack/react-query";
@@ -26,7 +25,8 @@ function HomeWithUseQuery() {
   // use query hook use korbo
 
   const [count, setCount] = useState(0);
-  const [categoryId, setcategoryId] = useState(null);
+  const [categoryId, setcategoryId] = useState<number|null>(null);
+  const [offset, setOffset] = useState(0);
 
   const [search, setSearch] = useState("");
   const _debounceValue = useDebounce(search);
@@ -38,7 +38,7 @@ function HomeWithUseQuery() {
 
   const { data, isLoading, error, refetch, status } = useQuery({
     // search chnage holei api call ta abar hobe
-    queryKey: ["product-list", count, _debounceValue, categoryId],
+    queryKey: ["product-list", count, _debounceValue, categoryId,offset],
     // axios fn ta akane pass kogit rte hbe
     queryFn: () =>
       fetchproductList({
@@ -48,6 +48,8 @@ function HomeWithUseQuery() {
           : {
               categoryId,
             }),
+          limit:20,
+          offset:offset*10
       }),
     // enbled
     // enabled:count>3
@@ -101,9 +103,10 @@ function HomeWithUseQuery() {
                 <ListItem
                   key={value?.id}
                   disablePadding
-                  onClick={() => setcategoryId(value?.id)}
+                  onClick={() => setcategoryId(value.id)}
                   sx={{
-                    background:categoryId===value?.id?"red":'transparent'
+                    background:
+                      categoryId === value?.id ? "red" : "transparent",
                   }}
                 >
                   <ListItemButton role={undefined} dense>
@@ -116,6 +119,14 @@ function HomeWithUseQuery() {
         </Grid>
 
         <Grid size={7} padding={1}>
+          <h1>current page - {offset}</h1>
+          <Grid size={12}>
+            <Pagination
+              count={10}
+              page={offset}
+              onChange={(e, pageNo) => setOffset(pageNo)}
+            />
+          </Grid>
           {isLoading ? (
             <Box display="flex" justifyContent="center" mt={5}>
               <CircularProgress />
@@ -129,12 +140,12 @@ function HomeWithUseQuery() {
               {data?.map((item) => (
                 <Grid size={4} key={item?.id}>
                   <ProductCard
-                    title={item?.title}
-                    image={item?.images[0]}
-                    id={item?.id}
+                    title={item.title}
+                    image={item.images[0]}
+                    id={item.id}
                     category={item?.category?.name}
-                    price={item?.price}
-                    description={item?.description}
+                    price={item.price}
+                    description={item.description}
                   />
                 </Grid>
               ))}
